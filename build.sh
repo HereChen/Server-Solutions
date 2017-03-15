@@ -1,3 +1,14 @@
+clean() {
+    # clean latex build
+    rm *.aux
+    rm *.log
+    rm *.out
+    rm *.toc
+
+    # clean build folder
+    rm -rf build/*
+}
+
 markdown_to_latex() {
     mkdir build/latex
     pandoc src/markdown/*.md -o build/latex/content.tex
@@ -13,6 +24,7 @@ latex_to_pdf(){
 }
 
 main() {
+    clean
     markdown_to_latex
     latex_to_pdf
 }
