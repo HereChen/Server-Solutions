@@ -29,11 +29,17 @@
 % list item space
 % refer: http://tex.stackexchange.com/questions/86054/how-to-remove-the-whitespace-before-itemize-enumerate
 \usepackage{enumitem}
-\setlist[enumerate]{noitemsep} % {noitemsep, topsep=0pt}
-\setlist[itemize]{noitemsep}
+\setlist[enumerate]{nosep, noitemsep} % {noitemsep, topsep=0pt}
+\setlist[itemize]{nosep, noitemsep}
 
 % inline code
 \newcommand{\code}{\texttt}
 
 % bibliography
 \bibliographystyle{plain}
+
+
+% markdown to latex fix
+% \tightlist error
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
