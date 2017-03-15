@@ -32,8 +32,13 @@
 \setlist[enumerate]{nosep, noitemsep} % {noitemsep, topsep=0pt}
 \setlist[itemize]{nosep, noitemsep}
 
+% code
 % inline code
 \newcommand{\code}{\texttt}
+% verbatim global font size
+\makeatletter
+\def\verbatim{\small\@verbatim \frenchspacing\@vobeyspaces \@xverbatim}
+\makeatother
 
 % bibliography
 \bibliographystyle{plain}
