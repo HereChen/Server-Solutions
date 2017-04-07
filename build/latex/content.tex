@@ -25,9 +25,9 @@
 
 \subsection{配置}\label{ux914dux7f6e}
 
-maven \texttt{pom.xml} 配置:
+maven \lstinline!pom.xml! 配置:
 
-\begin{verbatim}
+\begin{lstlisting}
 <dependency>
     <groupId>org.aspectj</groupId>
     <artifactId>aspectjrt</artifactId>
@@ -43,19 +43,19 @@ maven \texttt{pom.xml} 配置:
     <artifactId>cglib</artifactId>
     <version>2.2</version>
 </dependency>
-\end{verbatim}
+\end{lstlisting}
 
-\texttt{dispatcher-servlet.xml} 配置:
+\lstinline!dispatcher-servlet.xml! 配置:
 
-\begin{verbatim}
+\begin{lstlisting}
 <context:component-scan base-package="com.xx.xxxx" />
 <aop:aspectj-autoproxy />
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{AOP
 日志记录实现}\label{aop-ux65e5ux5fd7ux8bb0ux5f55ux5b9eux73b0}
 
-\begin{verbatim}
+\begin{lstlisting}
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -132,16 +132,17 @@ public class HttpLogAspect {
     }
 
 }
-\end{verbatim}
+\end{lstlisting}
 
 \section{不同环境(开发,上线)配置切换}\label{ux4e0dux540cux73afux5883ux5f00ux53d1ux4e0aux7ebfux914dux7f6eux5207ux6362}
 
 在编译时使用 maven 命令参数打包不同环境下的配置文件, 比如
-\texttt{src/main/resources/prod} 和 \texttt{src/main/resources/dev}
-文件夹下分别是线上环境和开发环境的配置文件. maven \texttt{pom.xml}
+\lstinline!src/main/resources/prod! 和
+\lstinline!src/main/resources/dev!
+文件夹下分别是线上环境和开发环境的配置文件. maven \lstinline!pom.xml!
 配置文件部分配置如下.
 
-\begin{verbatim}
+\begin{lstlisting}
 <build>
     <resources>
         <resource>
@@ -176,7 +177,7 @@ public class HttpLogAspect {
         </properties>
     </profile>
 </profiles>
-\end{verbatim}
+\end{lstlisting}
 
-打包时通过 \texttt{mvn\ clean\ package\ -P\ prod} 实现线上环境配置打包,
-\texttt{mvn\ clean\ package\ -P\ dev} 实现开发环境配置打包.
+打包时通过 \lstinline!mvn clean package -P prod! 实现线上环境配置打包,
+\lstinline!mvn clean package -P dev! 实现开发环境配置打包.

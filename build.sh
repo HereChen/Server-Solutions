@@ -11,8 +11,9 @@ clean() {
 
 markdown_to_latex() {
     mkdir build/latex
-    pandoc src/markdown/*.md -o build/latex/content.tex
+    pandoc --listings src/markdown/*.md -o build/latex/content.tex
     cp src/latex/format.cls build/latex/
+    cp src/latex/title.tex build/latex/
     cp src/latex/main.tex build/latex/
 }
 
