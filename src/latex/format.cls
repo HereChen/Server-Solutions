@@ -4,7 +4,7 @@
 \usepackage{xcolor}
 
 % Chinese
-\usepackage{xeCJK}
+% \usepackage{xeCJK}
 
 % inlucde image
 \usepackage{graphicx}
@@ -48,9 +48,10 @@
 % http://tex.stackexchange.com/questions/116534/lstlisting-line-wrapping
 \usepackage{listings}
 \lstset{
-    basicstyle=\ttfamily,
+    basicstyle=\ttfamily\small,
+    columns=flexible, % code copy
     numbers=left,
-    numberstyle=\footnotesize,
+    numberstyle=\tiny,
     stepnumber=1,
     numbersep=5pt,
     backgroundcolor=\color{black!10},
