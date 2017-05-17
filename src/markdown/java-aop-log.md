@@ -1,16 +1,18 @@
-# AOP 统一记录 HTTP 请求日志
+# 面向切面编程(AOP)
+
+## AOP 统一记录 HTTP 请求日志
 
 - 实现思路同样适用于非 HTTP 请求类型日志记录.
 - 本文需求是: 通过日志记录 Controller 中的请求.
 - 本文不对日志相关的配置作说明.
 - 完整示例可以直接看参考.
 
-## 环境
+### 环境
 
 - apache-tomcat-8.5.11
 - jdk1.8.0_121 (1.7 也可以)
 
-## 配置
+### 配置
 
 maven `pom.xml` 配置:
 
@@ -39,7 +41,7 @@ maven `pom.xml` 配置:
 <aop:aspectj-autoproxy />
 ```
 
-## AOP 日志记录实现
+### AOP 日志记录实现
 
 ```
 import org.apache.log4j.Logger;

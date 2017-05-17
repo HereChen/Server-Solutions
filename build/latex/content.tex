@@ -1,4 +1,6 @@
-\section{AOP 统一记录 HTTP
+\section{面向切面编程(AOP)}\label{ux9762ux5411ux5207ux9762ux7f16ux7a0baop}
+
+\subsection{AOP 统一记录 HTTP
 请求日志}\label{aop-ux7edfux4e00ux8bb0ux5f55-http-ux8bf7ux6c42ux65e5ux5fd7}
 
 \begin{itemize}
@@ -13,7 +15,7 @@
   完整示例可以直接看参考.
 \end{itemize}
 
-\subsection{环境}\label{ux73afux5883}
+\subsubsection{环境}\label{ux73afux5883}
 
 \begin{itemize}
 \tightlist
@@ -23,7 +25,7 @@
   jdk1.8.0\_121 (1.7 也可以)
 \end{itemize}
 
-\subsection{配置}\label{ux914dux7f6e}
+\subsubsection{配置}\label{ux914dux7f6e}
 
 maven \lstinline!pom.xml! 配置:
 
@@ -52,7 +54,7 @@ maven \lstinline!pom.xml! 配置:
 <aop:aspectj-autoproxy />
 \end{lstlisting}
 
-\subsection{AOP
+\subsubsection{AOP
 日志记录实现}\label{aop-ux65e5ux5fd7ux8bb0ux5f55ux5b9eux73b0}
 
 \begin{lstlisting}
@@ -134,7 +136,9 @@ public class HttpLogAspect {
 }
 \end{lstlisting}
 
-\section{不同环境(开发,上线)配置切换}\label{ux4e0dux540cux73afux5883ux5f00ux53d1ux4e0aux7ebfux914dux7f6eux5207ux6362}
+\section{maven 使用相关}\label{maven-ux4f7fux7528ux76f8ux5173}
+
+\subsection{不同环境(开发,上线)配置切换}\label{ux4e0dux540cux73afux5883ux5f00ux53d1ux4e0aux7ebfux914dux7f6eux5207ux6362}
 
 在编译时使用 maven 命令参数打包不同环境下的配置文件, 比如
 \lstinline!src/main/resources/prod! 和
@@ -142,7 +146,7 @@ public class HttpLogAspect {
 文件夹下分别是线上环境和开发环境的配置文件. maven \lstinline!pom.xml!
 配置文件部分配置如下.
 
-\begin{lstlisting}
+\begin{lstlisting}[language=XML]
 <build>
     <resources>
         <resource>
@@ -181,3 +185,61 @@ public class HttpLogAspect {
 
 打包时通过 \lstinline!mvn clean package -P prod! 实现线上环境配置打包,
 \lstinline!mvn clean package -P dev! 实现开发环境配置打包.
+
+\subsection{本地 JAR
+文件引入}\label{ux672cux5730-jar-ux6587ux4ef6ux5f15ux5165}
+
+\textbf{本地 JAR 文件加入到本地 maven 库}
+
+\begin{lstlisting}[language=XML]
+<!--build>plugins 下添加-->
+<!--安装本地 jar 包-->
+<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-install-plugin -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-install-plugin</artifactId>
+    <version>2.5.2</version>
+    <configuration>
+        <groupId>com.mycompany</groupId>
+        <artifactId>myproject</artifactId>
+        <version>1.0</version>
+        <packaging>jar</packaging>
+        <generatePom>true</generatePom>
+        <file>${basedir}/src/main/webapp/WEB-INF/lib/myjar.jar</file>
+    </configuration>
+    <executions>
+        <execution>
+            <id>install-jar-lib</id>
+            <goals>
+                <goal>install-file</goal>
+            </goals>
+            <phase>validate</phase>
+        </execution>
+    </executions>
+</plugin>
+\end{lstlisting}
+
+\textbf{依赖添加}
+
+\begin{lstlisting}[language=XML]
+<!--dependencies 下添加-->
+<dependency>
+    <groupId>com.mycompany</groupId>
+    <artifactId>myproject</artifactId>
+    <version>1.0</version>
+</dependency>
+\end{lstlisting}
+
+\textbf{打包前先执行} \lstinline!mvn install:install-file! 或者
+\lstinline!mvn validate!. 或者一行命令执行
+\lstinline!mvn validate & mvn clean package -P dev!.
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.cnblogs.com/xguo/archive/2013/06/04/3117894.html}{Maven安装jar文件到本地仓库}
+\item
+  \href{https://stackoverflow.com/questions/26618192/install-local-jar-dependency-as-part-of-the-lifecycle-before-maven-attempts-to}{Install
+  local jar dependency as part of the lifecycle, before Maven attempts
+  to resolve it}
+\end{itemize}
