@@ -24,10 +24,16 @@ latex_to_pdf(){
     cp *.pdf build/pdf/
 }
 
+markdown_to_docx() {
+    mkdir build/docx
+    pandoc -s src/markdown/*.md -o build/docx/main.docx
+}
+
 main() {
     clean
     markdown_to_latex
     latex_to_pdf
+    markdown_to_docx
 }
 
 main
